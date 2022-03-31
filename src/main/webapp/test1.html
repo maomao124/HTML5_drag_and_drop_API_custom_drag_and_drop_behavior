@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<!--
+Project name(项目名称)：HTML5_drag_and_drop_API_custom_drag_and_drop_behavior
+  File name(文件名): test1
+  Authors(作者）: mao
+  Author QQ：1296193245
+  GitHub：https://github.com/maomao124/
+  Date(创建日期)： 2022/3/31
+  Time(创建时间)： 19:05
+  Description(描述)： 无
+-->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        p {
+            width: 200px;
+            height: 200px;
+            background-color: #ff32d2;
+            float: left;
+            margin: 20px;
+            text-align: center;
+        }
+
+        div#container {
+            border: 2px solid lightcoral;
+            width: 800px;
+            height: 200px;
+            clear: both;
+            margin: 20px;
+            text-align: center;
+            background-color: #f4dbff
+        }
+    </style>
+</head>
+<body>
+
+<p id="test1" draggable="true" ondragstart="drag1(event)">
+    拖拽效果<br>move
+</p>
+
+<p id="test2" draggable="true" ondragstart="drag2(event)">
+    拖拽效果<br>copy
+</p>
+
+<p id="test3" draggable="true" ondragstart="drag3(event)">
+    拖拽效果<br>link
+</p>
+
+<div id="container" ondragover="allowDrop(event)" ondrop="drop(event)">
+    可放置区域
+</div>
+<script>
+    //ondragstart事件回调函数
+    function drag1(ev)
+    {
+        //DragEvent.dataTransfer属性保存拖动操作的数据
+        var dataTrans = ev.dataTransfer;
+        //DataTransfer.effectAllowed属性指定允许进行拖动操作的效果。
+        // 复制操作用于指示将被拖动的数据从其当前位置复制到放置位置。
+        // 移动操作用于指示正在拖动的数据将被移动，
+        // 链接操作用于指示将在源位置和放置位置之间创建某种形式的关系或连接。
+        dataTrans.effectAllowed = "move";
+        //设置传递的内容为被拖拽元素的id名称，数据类型为纯文本类型
+        dataTrans.setData("text/plain", ev.target.id);
+    }
+
+    function drag2(ev)
+    {
+        var dataTrans = ev.dataTransfer;
+        dataTrans.effectAllowed = "copy";
+        //设置传递的内容为被拖拽元素的id名称，数据类型为纯文本类型
+        dataTrans.setData("text/plain", ev.target.id);
+    }
+
+    function drag3(ev)
+    {
+        var dataTrans = ev.dataTransfer;
+        dataTrans.effectAllowed = "link";
+        //设置传递的内容为被拖拽元素的id名称，数据类型为纯文本类型
+        dataTrans.setData("text/plain", ev.target.id);
+    }
+
+    //ondragover事件回调函数
+    function allowDrop(ev)
+    {
+        //解禁当前元素为可放置被拖拽元素的区域
+        //Event接口的preventDefault()方法告诉用户代理 ，
+        // 如果事件没有得到显式处理，则不应像通常那样采取其默认操作。
+        // 事件继续像往常一样传播，除非其中一个事件侦听器调用stopPropagation()或stopImmediatePropagation() ，
+        // 其中任何一个都会立即终止传播。
+        ev.preventDefault();
+    }
+
+    //ondrop事件回调函数
+    function drop(ev)
+    {
+        //解禁当前元素为可放置被拖拽元素的区域
+        ev.preventDefault();
+    }
+</script>
+</body>
+</html>
